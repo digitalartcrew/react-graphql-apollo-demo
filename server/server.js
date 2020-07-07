@@ -1,11 +1,14 @@
 import express from 'express';
 import { ApolloServer} from "apollo-server-express";
 import { schema } from './src/schema';
+import cors from 'cors';
 
-const server = new ApolloServer({ schema });
 const PORT = 4000;
-
+const server = new ApolloServer({ schema });
 const app = express();
+
+app.use('*', cors({ origin: "http://localhost:3000"}));
+
 server.applyMiddleware({ app });
 
 app.listen({ port: PORT }, () =>

@@ -1,6 +1,8 @@
-import { makeExecutableSchema, addMocksToSchema} from 'graphql-tools';
+import { makeExecutableSchema, addMockFunctionsToSchema } from "apollo-server-express";
 
-const typeDefs = `
+import { resolvers } from './resolvers';
+
+export const typeDefs = `
   type Contact {
     id: ID!
     firstName: String
@@ -10,9 +12,13 @@ const typeDefs = `
   type Query {
     contacts: [Contact]
   }
+
+  type Mutation {
+    addContact(firstName: String!, lastName: String!): Contact
+  }
 `;
 
-const schema = makeExecutableSchema({ typeDefs});
-addMocksToSchema({ schema});
+const schema = makeExecutableSchema({ typeDefs, resolvers});
+addMockFunctionsToSchema({ schema});
 
 export { schema };
