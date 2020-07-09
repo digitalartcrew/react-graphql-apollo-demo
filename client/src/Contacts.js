@@ -1,6 +1,7 @@
 import React from 'react';
 import { gql } from "apollo-boost";
 import { graphql } from 'react-apollo';
+import DeleteContact from './DeleteContact';
 
 const Contacts = ({ data: { loading, error, contacts }}) => {
   if (loading) {
@@ -14,7 +15,7 @@ const Contacts = ({ data: { loading, error, contacts }}) => {
   return (
     <ul>
       { contacts.map( item => 
-      (<li key={item.id}>{item.firstName} {item.lastName}</li>)
+        (<li key={item.id}>{item.firstName} {item.lastName}<DeleteContact id={item.id}/></li>)
       )}
     </ul>
   );
