@@ -5,6 +5,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { ApolloClient } from "apollo-client";
 import Contacts from './Contacts';
+import AddContact from './AddContact';
 
 //In order to initialize Apollo Client you must initialize link and cache
 const cache = new InMemoryCache();
@@ -21,9 +22,8 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <div className="App-header">
-          <h2>CRM</h2>
-        </div>
+        <h2>Contact List</h2>
+        <AddContact />
         <Contacts />
       </div>
     </ApolloProvider>

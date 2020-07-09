@@ -1,6 +1,6 @@
-import { makeExecutableSchema, addMockFunctionsToSchema } from "apollo-server-express";
+//https://www.apollographql.com/docs/tutorial/schema/
 
-import { resolvers } from './resolvers';
+// Every data graph uses a schema to define the types of data it includes
 
 export const typeDefs = `
   type Contact {
@@ -14,11 +14,6 @@ export const typeDefs = `
   }
 
   type Mutation {
-    addContact(firstName: String!, lastName: String!): Contact
+    addContact(id: String!, firstName: String!, lastName: String!): Contact
   }
 `;
-
-const schema = makeExecutableSchema({ typeDefs, resolvers});
-addMockFunctionsToSchema({ schema});
-
-export { schema };
