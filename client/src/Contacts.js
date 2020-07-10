@@ -2,6 +2,7 @@ import React from 'react';
 import { gql } from "apollo-boost";
 import { graphql } from 'react-apollo';
 import DeleteContact from './DeleteContact';
+import AddContact from './AddContact';
 
 const Contacts = ({ data: { loading, error, contacts }}) => {
   if (loading) {
@@ -12,10 +13,11 @@ const Contacts = ({ data: { loading, error, contacts }}) => {
     return <p>{error.message}</p>
   }
 
+  const isUpdating = false;
+
   return (
     <ul>
-      { contacts.map( item => 
-        (<li key={item.id}>{item.firstName} {item.lastName}<DeleteContact id={item.id}/></li>)
+      { contacts.map( item => isUpdating ? <AddContact /> : (<li key={item.id}>{item.firstName} {item.lastName}<DeleteContact id={item.id}/></li>)
       )}
     </ul>
   );
