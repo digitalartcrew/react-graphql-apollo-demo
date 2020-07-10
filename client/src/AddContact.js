@@ -11,14 +11,13 @@ class AddContact extends Component {
   }
 
   //create a function to handle save
-  handleSave = ({mutate}) => {
+  handleSave = () => {
     //using deconstruction to prevent retyping this.state
     const { firstName, lastName } = this.state
     const id = require('crypto').randomBytes(5).toString('hex');
 
     //mutates is a function that comes from graphql, create variables to pass into graphql
-    this.props
-			.mutate({
+    this.props.mutate({
 				variables: { id, firstName, lastName },
 				optimisticResponse: {
 					addContact: {

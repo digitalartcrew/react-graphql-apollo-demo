@@ -15,5 +15,6 @@ export const typeDefs = `
 
   type Mutation {
     addContact(id: String!, firstName: String!, lastName: String!): Contact
+    deleteContact(id: String!): [Contact]
   }
 `;
