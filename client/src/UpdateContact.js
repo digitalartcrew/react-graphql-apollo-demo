@@ -3,33 +3,50 @@ import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
 import { contactsListQuery } from "../src/Contacts";
 
-class DeleteContact extends Component {
-	handleDelete = () => {
-		const { id } = this.props;
+class UpdateContact extends Component {
+	handleUpdate = () => {
+		const { id, firstName, lastName } = this.props;
 
 		this.props.mutate({
 			variables: { id },
 			optimisticResponse: {
-				deleteContact: {
+				updateContact: {
 					id,
+					firstName,
+					lastName,
 					__typename: "[Contact]",
 				},
 			},
-			update: (store, { data: { deleteContact } }) => {
+			update: (store, { data: { updateContact } }) => {
 				const data = store.readQuery({ query: contactsListQuery });
-				const deletedItem = data.contacts.find(
-					(contact) => contact.id === deleteContact.id
+				const updatedItem = data.contacts.find(
+					(contact) => contact.id === updateContact.id
 				);
-				const index = data.contacts.indexOf(deletedItem);
-
-				data.contacts.splice(index, 1);
+				
+				updatedItem.firstName = firstName;
+				updatedItem.lastName = lastName;
+		
 				store.writeQuery({ query: contactsListQuery, data });
 			},
 		});
 	};
 
 	render() {
-		return <button onClick={this.handleDelete}>Delete</button>;
+		return (
+			<div>
+				<input
+					value={this.props.firstName}
+					placeholder="First name"
+					onChange={(e) => this.setState({ firstName: e.target.value })}
+				/>
+				<input
+					value={this.props.lastName}
+					placeholder="Last name"
+					onChange={(e) => this.setState({ lastName: e.target.value })}
+				/>
+				<button onClick={this.handleUpdate}>Save Edit</button>
+			</div>
+		);
 	}
 }
 
